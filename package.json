@@ -1,0 +1,39 @@
+{
+  "name": "uiautomator-client",
+  "version": "1.0.1",
+  "description": "uiautomator-client",
+  "keywords": ["uiautomator-client"],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xudafeng/uiautomator-client.git"
+  },
+  "dependencies": {
+    "ant-lite": "~0.1.0",
+    "java-home": "~1.0.1",
+    "macaca-adb": "~1.0.2",
+    "macaca-utils": "~0.1.6",
+    "reliable-logger": "^1.0.7",
+    "win-spawn": "~2.0.0"
+  },
+  "devDependencies": {
+    "co-mocha": "~1.1.2",
+    "istanbul": "*",
+    "jshint": "*",
+    "pre-commit": "1.1.1",
+    "should": "~8.0.2"
+  },
+  "scripts": {
+    "test": "make test",
+    "jshint": "make jshint",
+    "install": "node ./scripts/build.js"
+  },
+  "pre-commit": [
+    "jshint"
+  ],
+  "homepage": "https://github.com/xudafeng/uiautomator-client",
+  "author": "xudafeng",
+  "email": "xudafeng@126.com",
+  "blog": "http://xdf.me",
+  "license": "MIT"
+}
