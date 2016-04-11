@@ -30,7 +30,6 @@ function selectAndroidSdkSync() {
   var env = global.process.env;
 
   if (!env.ANDROID_HOME) {
-    //throw 'ANDROID_HOME is not set';
     console.log('ANDROID_HOME is not set');
     return null;
   }
@@ -56,96 +55,110 @@ function selectAndroidSdkSync() {
   return res;
 }
 
-var buildBootstrap = callback => {
+var checkEnv = function() {
+  return JAVA_HOME.getPath().then(javaHome => {
+    console.log('JAVA_HOME is set to ' + javaHome);
 
-  var process = spawn(ant, ['build'], {
-    cwd: cwd
-  });
-  process.on('error', err => {
-    //throw err;
-    console.log(err);
-  });
+    var env = global.process.env;
 
-  process.stdout.setEncoding('utf8');
-  process.stderr.setEncoding('utf8');
-
-  process.stdout.on('data', data => {
-    console.log(data);
-  });
-  process.stderr.on('data', data => {
-    console.log(data);
-  });
-
-  process.on('exit', code => {
-    if (code !== 0) {
-      //throw 'build failed';
-      console.log('build failed');
+    if (!env.ANDROID_HOME) {
+      console.log('ANDROID_HOME is not set');
+      throw new Error('ANDROID_HOME is not set');
     }
-    callback();
-  });
 
+    var android = isWindows ? 'android.bat' : 'android';
+    var androidTool = path.resolve(env.ANDROID_HOME, 'tools', android);
+
+    if (!_.isExistedFile(androidTool)) {
+      console.log('`android` command was not found');
+      throw new Error('`android` command was not found');
+    }
+
+    var sdkVersion = selectAndroidSdkSync();
+
+    if (!sdkVersion) {
+      console.log('no avaliable sdk');
+      throw new Error('no avaliable sdk');
+    }
+
+    sdkVersion = sdkVersion[sdkVersion.length - 1];
+
+    var args = ['create', 'uitest-project', '-n', fileName, '-t', sdkVersion, '-p', '.'];
+
+    return [androidTool, args];
+  });
 };
 
-JAVA_HOME.getPath((error, javaHome) => {
-  if (error) {
-    //throw 'JAVA_HOME is not set';
-    console.log('JAVA_HOME is not set');
-  }
-  console.log('JAVA_HOME is set to ' + javaHome);
+var createUITest = function(res) {
+  var androidTool = res[0];
+  var args = res[1];
+  return new Promise((resolve, reject) => {
+    var createProcess = spawn(androidTool, args, {
+      cwd: cwd
+    });
 
-  var env = global.process.env;
+    createProcess.on('error', err => {
+      console.log(err);
+      reject(err);
+    });
 
-  if (!env.ANDROID_HOME) {
-    //throw 'ANDROID_HOME is not set';
-    console.log('ANDROID_HOME is not set');
-    return;
-  }
+    createProcess.stdout.setEncoding('utf8');
+    createProcess.stderr.setEncoding('utf8');
 
-  var android = isWindows ? 'android.bat' : 'android';
-  var androidTool = path.resolve(env.ANDROID_HOME, 'tools', android);
+    createProcess.stdout.on('data', data => {
+      console.log(data);
+    });
 
-  if (!_.isExistedFile(androidTool)) {
-    //throw '`android` command was not found';
-    console.log('`android` command was not found');
-  }
+    createProcess.stderr.on('data', data => {
+      console.log(data);
+    });
 
-  var sdkVersion = selectAndroidSdkSync();
-
-  if (!sdkVersion) {
-    console.log('not avaliable sdk');
-    return;
-  }
-
-  sdkVersion = sdkVersion[sdkVersion.length - 1];
-
-  var args = ['create', 'uitest-project', '-n', fileName, '-t', sdkVersion, '-p', '.'];
-
-  var process = spawn(androidTool, args, {
-    cwd: cwd
-  });
-
-  process.on('error', err => {
-    //throw err;
-    console.log(err);
-  });
-
-  process.stdout.setEncoding('utf8');
-  process.stderr.setEncoding('utf8');
-  process.stdout.on('data', data => {
-    console.log(data);
-  });
-  process.stderr.on('data', data => {
-    console.log(data);
-  });
-  process.on('exit', code => {
-    if (code !== 0) {
-      //throw 'setup failed';
-      console.log('setup failed');
-    }
-
-    buildBootstrap(() => {
-      console.log(fileName + ' build success!');
+    createProcess.on('exit', code => {
+      if (code !== 0) {
+        reject(new Error('setup failed'));
+      } else {
+        resolve();
+      }
     });
   });
+};
 
-});
+var buildBootstrap = function() {
+  return new Promise((resolve, reject) => {
+    var buildProcess = spawn(ant, ['build'], {
+      cwd: cwd
+    });
+
+    buildProcess.on('error', err => {
+      return reject(err);
+    });
+
+    buildProcess.stdout.setEncoding('utf8');
+    buildProcess.stderr.setEncoding('utf8');
+
+    buildProcess.stdout.on('data', data => {
+      console.log(data);
+    });
+    buildProcess.stderr.on('data', data => {
+      console.log(data);
+    });
+
+    buildProcess.on('exit', code => {
+      if (code !== 0) {
+        reject(new Error('build failed'));
+      } else {
+        console.log(fileName + ' build success!');
+        resolve();
+      }
+    });
+  });
+};
+
+checkEnv()
+  .then(createUITest)
+  .then(buildBootstrap)
+  .catch((e) => {
+    setTimeout(() => {
+      throw e;
+    });
+  });
