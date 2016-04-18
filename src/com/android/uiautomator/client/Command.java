@@ -1,13 +1,11 @@
 package com.android.uiautomator.client;
 
-import java.util.HashMap;
-
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.android.uiautomator.client.cmd.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.uiautomator.client.cmd.*;
+import javax.xml.parsers.ParserConfigurationException;
+import java.util.HashMap;
 
 /**
  * @author xdf
@@ -26,6 +24,7 @@ public class Command {
 		getMap().put("setText", new SetText());
 		getMap().put("getText", new GetText());
 		getMap().put("click", new Click());
+		getMap().put("clearText", new ClearText());
 	}
 
 	/**
