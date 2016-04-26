@@ -25,7 +25,7 @@ public class Command {
 		getMap().put("getText", new GetText());
 		getMap().put("click", new Click());
 		getMap().put("clearText", new ClearText());
-		getMap().put("swipe", new Scroll());
+		getMap().put("swipe", new Swipe());
 	}
 
 	/**

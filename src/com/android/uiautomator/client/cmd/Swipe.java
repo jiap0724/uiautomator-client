@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * @author zxa
  *
  */
-public class ScrollInto extends CommandBase {
+public class Swipe extends CommandBase {
     @Override
     public String execute(JSONObject args) throws JSONException {
         try {
