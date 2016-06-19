@@ -1,6 +1,6 @@
 {
   "name": "uiautomator-client",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "uiautomator-client",
   "keywords": [
     "uiautomator"
@@ -11,7 +11,7 @@
     "url": "git://github.com/xudafeng/uiautomator-client.git"
   },
   "dependencies": {
-    "ant-lite": "~0.1.0",
+    "ant-lite": "~1.0.0",
     "java-home": "~1.0.1",
     "macaca-adb": "~1.0.2",
     "win-spawn": "~2.0.0",
