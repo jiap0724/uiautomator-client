@@ -88,6 +88,7 @@ public class Find extends CommandBase {
 
 		if (strategy.equals("CLASS_NAME")) {
 			selectors = selectors.className(text);
+
 			if (!multiple) {
 				selectors = selectors.instance(0);
 			}
@@ -104,7 +105,13 @@ public class Find extends CommandBase {
 				selectors = selectors.instance(0);
 			}
 			list.add(selectors);
+		} else if (strategy.equals("ID")) {
+			selectors = selectors.resourceId(text);
 
+			if (!multiple) {
+				selectors = selectors.instance(0);
+			}
+			list.add(selectors);
 		}
 		return list;
 	}
