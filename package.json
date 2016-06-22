@@ -1,14 +1,14 @@
 {
   "name": "uiautomator-client",
   "version": "1.0.9",
-  "description": "uiautomator-client",
+  "description": "Node.js wrapper for UIAutomator",
   "keywords": [
     "uiautomator"
   ],
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/xudafeng/uiautomator-client.git"
+    "url": "git://github.com/macacajs/uiautomator-client.git"
   },
   "dependencies": {
     "ant-lite": "~1.0.0",
@@ -33,9 +33,6 @@
   "pre-commit": [
     "jshint"
   ],
-  "homepage": "https://github.com/xudafeng/uiautomator-client",
-  "author": "xudafeng",
-  "email": "xudafeng@126.com",
-  "blog": "http://xdf.me",
+  "homepage": "https://github.com/macacajs/uiautomator-client",
   "license": "MIT"
 }
