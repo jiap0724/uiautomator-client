@@ -31,10 +31,10 @@ public class SetText extends CommandBase {
                 text = text.replace("\\n", "");
             }
 
-            Charset M_UTF7 = Charset.forName("x-IMAP-mailbox-name");
+            Charset UTF7 = Charset.forName("UTF-7");
             Charset ASCII = Charset.forName("US-ASCII");
 
-            byte[] encoded = text.getBytes(M_UTF7);
+            byte[] encoded = text.getBytes(UTF7);
             String str = new String(encoded, ASCII);
 
             boolean result = element.setText(str);
