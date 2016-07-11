@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class Command {
 	/**
-	 * 
+	 *
 	 */
 	private static HashMap<String, CommandBase> map = new HashMap<String, CommandBase>();
 
@@ -26,8 +26,7 @@ public class Command {
 		getMap().put("click", new Click());
 		getMap().put("clearText", new ClearText());
 		getMap().put("swipe", new Swipe());
-		getMap().put("getDisplayWidth", new GetDisplayWidth());
-		getMap().put("getDisplayHeight", new GetDisplayHeight());
+		getMap().put("getWindowSize", new GetWindowSize());
 	}
 
 	/**
