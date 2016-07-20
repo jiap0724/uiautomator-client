@@ -27,6 +27,8 @@ public class Command {
 		getMap().put("clearText", new ClearText());
 		getMap().put("swipe", new Swipe());
 		getMap().put("getWindowSize", new GetWindowSize());
+		getMap().put("getProperties", new GetProperties());
+		getMap().put("getSource", new GetSource());
 	}
 
 	/**

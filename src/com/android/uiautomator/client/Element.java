@@ -12,11 +12,11 @@ public class Element {
 	/**
 	 * 
 	 */
-	private UiObject element;
+	public UiObject element;
 	/**
 	 * 
 	 */
-	private String id;
+	public String id;
 
 	/**
 	 * @param id
