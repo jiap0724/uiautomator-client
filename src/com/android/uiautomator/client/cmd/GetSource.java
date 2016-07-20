@@ -10,10 +10,13 @@ import org.json.JSONObject;
  * @author xdf
  */
 public class GetSource extends CommandBase {
+
+    private static final String dumpFileName = "macaca-dump.xml";
+
     @Override
     public String execute(JSONObject args) throws JSONException {
         try {
-            UiDevice.getInstance();
+            UiDevice.getInstance().dumpWindowHierarchy(dumpFileName);
             return success(true);
         } catch (final Exception e) {
             return failed("UnknownError");

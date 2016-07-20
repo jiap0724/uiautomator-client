@@ -17,10 +17,12 @@
 
 var fs = require('fs');
 var path = require('path');
-var _ = require('../lib/helper');
+var EOL = require('os').EOL;
 var spawn = require('win-spawn');
 var JAVA_HOME = require('java-home');
 var ant = require('ant-lite').binPath;
+
+var _ = require('../lib/helper');
 var fileName = require('..').fileName;
 
 var isWindows = _.platform.isWindows;
@@ -106,11 +108,11 @@ var createUITest = function(res) {
     createProcess.stderr.setEncoding('utf8');
 
     createProcess.stdout.on('data', data => {
-      console.log(data);
+      console.log(data.split(EOL).join(''));
     });
 
     createProcess.stderr.on('data', data => {
-      console.log(data);
+      console.log(data.split(EOL).join(''));
     });
 
     createProcess.on('exit', code => {
@@ -137,10 +139,10 @@ var buildBootstrap = function() {
     buildProcess.stderr.setEncoding('utf8');
 
     buildProcess.stdout.on('data', data => {
-      console.log(data);
+      console.log(data.split(EOL).join(''));
     });
     buildProcess.stderr.on('data', data => {
-      console.log(data);
+      console.log(data.split(EOL).join(''));
     });
 
     buildProcess.on('exit', code => {
