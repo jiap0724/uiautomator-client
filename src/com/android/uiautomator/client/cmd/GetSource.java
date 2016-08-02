@@ -6,6 +6,10 @@ import com.android.uiautomator.core.UiDevice;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+
+import android.os.Environment;
+
 /**
  * @author xdf
  */
@@ -16,6 +20,13 @@ public class GetSource extends CommandBase {
     @Override
     public String execute(JSONObject args) throws JSONException {
         try {
+
+            final File dump = new File(new File(Environment.getDataDirectory(),
+                    "local/tmp"), dumpFileName);
+            dump.mkdirs();
+            if (dump.exists()) {
+                dump.delete();
+            }
             UiDevice.getInstance().dumpWindowHierarchy(dumpFileName);
             return success(true);
         } catch (final Exception e) {

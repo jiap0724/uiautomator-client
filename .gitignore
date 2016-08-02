@@ -44,16 +44,11 @@ lint.xml
 
 node_modules
 npm-debug.log
-*.swp
-*.swo
-*.swn
-*.swl
-*.swm
-.sw*
+*.sw*
 .idea/*
 Thumbs.db
 coverage/
 .project
 .settings/
 build.xml
-
+*.un~
