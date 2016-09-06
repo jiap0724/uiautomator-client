@@ -21,6 +21,8 @@ public class GetProperties extends CommandBase {
             Element el = Elements.getGlobal().getElement(elementId);
             final Rect rect = el.element.getVisibleBounds();
             JSONObject size = new JSONObject();
+            size.put("x", rect.left);
+            size.put("y", rect.top);
             size.put("width", rect.width());
             size.put("height", rect.height());
             size.put("centerX", rect.centerX());
