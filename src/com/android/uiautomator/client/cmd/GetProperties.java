@@ -21,13 +21,17 @@ public class GetProperties extends CommandBase {
             Element el = Elements.getGlobal().getElement(elementId);
             final Rect rect = el.element.getVisibleBounds();
             JSONObject size = new JSONObject();
-            size.put("x", rect.left);
-            size.put("y", rect.top);
             size.put("width", rect.width());
             size.put("height", rect.height());
             size.put("centerX", rect.centerX());
             size.put("centerY", rect.centerY());
-            return success(size.toString());
+            JSONObject origin = new JSONObject();
+            origin.put("x", rect.left);
+            origin.put("y", rect.top);
+            JSONObject props = new JSONObject();
+            props.put("origin", origin);
+            props.put("size", size);
+            return success(props.toString());
         } catch (final UiObjectNotFoundException e) {
             return failed("NoSuchElement");
         } catch (final Exception e) {
