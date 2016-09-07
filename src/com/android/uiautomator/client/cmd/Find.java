@@ -1,20 +1,19 @@
 package com.android.uiautomator.client.cmd;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.uiautomator.client.CommandBase;
 import com.android.uiautomator.client.Element;
 import com.android.uiautomator.client.Elements;
 import com.android.uiautomator.client.Utils;
+import com.android.uiautomator.client.XmlUtils.XmlUtils;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author xdf
@@ -37,9 +36,13 @@ public class Find extends CommandBase {
 
 			strategy = strategy.trim().replace(" ", "_").toUpperCase();
 			Object result = null;
-			List<UiSelector> selectors = getSelectors(strategy, selector,
-					multiple);
-
+			List<UiSelector> selectors = null;
+			try {
+				selectors = getSelectors(strategy, selector,
+						multiple);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			boolean found = false;
 
 			if (multiple) {
@@ -80,7 +83,7 @@ public class Find extends CommandBase {
 	 * @throws ParserConfigurationException
 	 */
 	private List<UiSelector> getSelectors(String strategy, String text,
-			boolean multiple) throws ParserConfigurationException {
+			boolean multiple) throws Exception {
 
 		final List<UiSelector> list = new ArrayList<UiSelector>();
 
@@ -112,7 +115,21 @@ public class Find extends CommandBase {
 				selectors = selectors.instance(0);
 			}
 			list.add(selectors);
+		} else if(strategy.equals("XPATH")) {
+			final ArrayList<UiSelector> pairs = XmlUtils.getSelectors(text);
+
+			if (!multiple) {
+				if (pairs.size() == 0) {
+					throw new Exception("Could not find an element using given xpath expression.");
+				}
+				list.add(pairs.get(0));
+			} else {
+				for (final UiSelector pair : pairs) {
+					list.add(pair);
+				}
+			}
 		}
+
 		return list;
 	}
 
