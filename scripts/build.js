@@ -28,6 +28,9 @@ var fileName = require('..').fileName;
 var isWindows = _.platform.isWindows;
 var cwd = path.join(__dirname, '..');
 
+var MAX_SDK_VERSION = 23;
+var MIN_SDK_VERSION = 16;
+
 function selectAndroidSdkSync() {
   var env = global.process.env;
 
@@ -51,6 +54,17 @@ function selectAndroidSdkSync() {
 
   if (!res.length) {
     console.log('platforms directory is not exist');
+    return null;
+  }
+
+  res = _.filter(res, n => {
+    var version = parseInt(n.split('-').pop());
+    return version >= MIN_SDK_VERSION && version <= MAX_SDK_VERSION;
+  });
+
+  if (!res.length) {
+    console.log('Only support android sdk version between ' +
+      MIN_SDK_VERSION + ' and ' + MAX_SDK_VERSION);
     return null;
   }
 
