@@ -20,7 +20,7 @@ Node.js wrapper for UIAutomator.
 
 ## Installment
 
-```bash
+```shell
 $ npm i uiautomator-client --save
 ```
 

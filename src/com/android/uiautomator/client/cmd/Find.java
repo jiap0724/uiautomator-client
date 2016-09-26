@@ -68,6 +68,10 @@ public class Find extends CommandBase {
 				}
 			}
 
+			if (!found) {
+				return failed("ElementNotFound");
+			}
+
 			return success((Object) result);
 		} catch (JSONException e) {
 			e.printStackTrace();
