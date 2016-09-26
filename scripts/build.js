@@ -28,7 +28,7 @@ var fileName = require('..').fileName;
 var isWindows = _.platform.isWindows;
 var cwd = path.join(__dirname, '..');
 
-var MAX_SDK_VERSION = 23;
+var MAX_SDK_VERSION = 24;
 var MIN_SDK_VERSION = 16;
 
 function selectAndroidSdkSync() {
