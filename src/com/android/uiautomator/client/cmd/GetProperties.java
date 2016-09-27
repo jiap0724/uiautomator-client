@@ -19,7 +19,7 @@ public class GetProperties extends CommandBase {
         try {
             String elementId = (String) args.get("elementId");
             Element el = Elements.getGlobal().getElement(elementId);
-            final Rect rect = el.element.getVisibleBounds();
+            final Rect rect = el.element.getBounds();
             JSONObject size = new JSONObject();
             size.put("width", rect.width());
             size.put("height", rect.height());
