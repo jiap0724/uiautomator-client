@@ -29,6 +29,7 @@ public class Command {
 		getMap().put("getWindowSize", new GetWindowSize());
 		getMap().put("getProperties", new GetProperties());
 		getMap().put("getSource", new GetSource());
+		getMap().put("isDisplayed", new IsDisplayed());
 	}
 
 	/**

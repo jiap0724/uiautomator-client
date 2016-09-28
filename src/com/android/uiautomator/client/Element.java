@@ -10,11 +10,11 @@ import com.android.uiautomator.core.UiObjectNotFoundException;
  */
 public class Element {
 	/**
-	 * 
+	 *
 	 */
 	public UiObject element;
 	/**
-	 * 
+	 *
 	 */
 	public String id;
 
@@ -68,5 +68,13 @@ public class Element {
 	 */
 	public void clearText() throws UiObjectNotFoundException {
 		element.clearTextField();
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean isDisplayed() throws UiObjectNotFoundException {
+		return element.waitForExists(500);
 	}
 }
