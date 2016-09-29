@@ -3,6 +3,7 @@ package com.android.uiautomator.client.cmd;
 import com.android.uiautomator.client.CommandBase;
 import com.android.uiautomator.client.Element;
 import com.android.uiautomator.client.Elements;
+import com.android.uiautomator.client.Status;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +22,9 @@ public class ClearText extends CommandBase {
             el.clearText();
             return success(true);
         } catch (final UiObjectNotFoundException e) {
-            return failed("NoSuchElement");
+            return failed(Status.NoSuchElement);
         } catch (final Exception e) {
-            return failed("UnknownError");
+            return failed(Status.UnknownError);
         }
     }
 }

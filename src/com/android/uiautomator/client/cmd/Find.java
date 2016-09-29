@@ -1,9 +1,6 @@
 package com.android.uiautomator.client.cmd;
 
-import com.android.uiautomator.client.CommandBase;
-import com.android.uiautomator.client.Element;
-import com.android.uiautomator.client.Elements;
-import com.android.uiautomator.client.Utils;
+import com.android.uiautomator.client.*;
 import com.android.uiautomator.client.XmlUtils.XmlUtils;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
@@ -69,13 +66,13 @@ public class Find extends CommandBase {
 			}
 
 			if (!found) {
-				return failed("ElementNotFound");
+				return failed(Status.NoSuchElement);
 			}
 
 			return success((Object) result);
 		} catch (JSONException e) {
 			e.printStackTrace();
-			return failed("UnknownError");
+			return failed(Status.UnknownError);
 		}
 	}
 
@@ -123,10 +120,9 @@ public class Find extends CommandBase {
 			final ArrayList<UiSelector> pairs = XmlUtils.getSelectors(text);
 
 			if (!multiple) {
-				if (pairs.size() == 0) {
-					throw new Exception("Could not find an element using given xpath expression.");
+				if (pairs.size() != 0) {
+					list.add(pairs.get(0));
 				}
-				list.add(pairs.get(0));
 			} else {
 				for (final UiSelector pair : pairs) {
 					list.add(pair);

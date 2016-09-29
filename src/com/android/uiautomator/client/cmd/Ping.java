@@ -1,5 +1,6 @@
 package com.android.uiautomator.client.cmd;
 
+import com.android.uiautomator.client.Status;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,7 +17,7 @@ public class Ping extends CommandBase {
 			return success((Object) "it works!");
 		} catch (JSONException e) {
 			e.printStackTrace();
-			return failed("UnknownError");
+			return failed(Status.UnknownError);
 		}
 	}
 }

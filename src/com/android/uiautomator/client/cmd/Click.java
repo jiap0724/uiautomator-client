@@ -1,5 +1,6 @@
 package com.android.uiautomator.client.cmd;
 
+import com.android.uiautomator.client.Status;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,9 +22,9 @@ public class Click extends CommandBase {
             el.click();
             return success(true);
         } catch (final UiObjectNotFoundException e) {
-            return failed("NoSuchElement");
+            return failed(Status.NoSuchElement);
         } catch (final Exception e) {
-            return failed("UnknownError");
+            return failed(Status.UnknownError);
         }
     }
 }
