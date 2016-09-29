@@ -1,5 +1,6 @@
 package com.android.uiautomator.client.cmd;
 
+import com.android.uiautomator.client.Status;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,6 +23,6 @@ public class Wake extends CommandBase {
 		} catch (final RemoteException e) {
 			Utils.output(e.toString());
 		}
-		return failed("UnknownError");
+		return failed(Status.UnknownError);
 	}
 }

@@ -1,14 +1,13 @@
 package com.android.uiautomator.client.cmd;
 
+import android.os.Environment;
 import com.android.uiautomator.client.CommandBase;
+import com.android.uiautomator.client.Status;
 import com.android.uiautomator.core.UiDevice;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-
-import android.os.Environment;
 
 /**
  * @author xdf
@@ -30,7 +29,7 @@ public class GetSource extends CommandBase {
             UiDevice.getInstance().dumpWindowHierarchy(dumpFileName);
             return success(true);
         } catch (final Exception e) {
-            return failed("UnknownError");
+            return failed(Status.UnknownError);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.android.uiautomator.client.cmd;
 
+import com.android.uiautomator.client.Status;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.android.uiautomator.core.UiDevice;
@@ -16,7 +17,7 @@ public class GetWindowSize extends CommandBase {
 			size.put("height", height);
 			return success(size.toString());
 		} catch(JSONException e) {
-			return failed("UnknownError");
+			return failed(Status.UnknownError);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.android.uiautomator.client.cmd;
 
 import com.android.uiautomator.client.CommandBase;
+import com.android.uiautomator.client.Status;
 import com.android.uiautomator.core.UiDevice;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +23,7 @@ public class Swipe extends CommandBase {
 
             return success(result);
         } catch (final Exception e) {
-            return failed("UnknownError");
+            return failed(Status.UnknownError);
         }
     }
 }

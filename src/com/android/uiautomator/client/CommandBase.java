@@ -18,20 +18,26 @@ public abstract class CommandBase {
 	 */
 	protected String success(Object data) throws JSONException {
 		JSONObject res = new JSONObject();
+		JSONObject resTmp = new JSONObject();
+		resTmp.put("status", Status.Success.getStatusCode());
+		resTmp.put("value", data);
 		res.put("success", true);
-		res.put("data", data);
+		res.put("data", resTmp);
 		return res.toString();
 	}
 
 	/**
-	 * @param data
+	 * @param status
 	 * @return res
 	 * @throws JSONException
 	 */
-	protected String failed(Object data) throws JSONException {
+	protected String failed(Status status) throws JSONException {
 		JSONObject res = new JSONObject();
-		res.put("success", false);
-		res.put("errMsg", data);
+		JSONObject resTmp = new JSONObject();
+		resTmp.put("status", status.getStatusCode());
+		resTmp.put("value", status.getStatusDes());
+		res.put("success", true);
+		res.put("data", resTmp);
 		return res.toString();
 	}
 

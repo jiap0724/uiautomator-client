@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import com.android.uiautomator.client.CommandBase;
 import com.android.uiautomator.client.Element;
 import com.android.uiautomator.client.Elements;
+import com.android.uiautomator.client.Status;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 
 import org.json.JSONException;
@@ -33,9 +34,9 @@ public class GetProperties extends CommandBase {
             props.put("size", size);
             return success(props.toString());
         } catch (final UiObjectNotFoundException e) {
-            return failed("NoSuchElement");
+            return failed(Status.NoSuchElement);
         } catch (final Exception e) {
-            return failed("UnknownError");
+            return failed(Status.UnknownError);
         }
     }
 }

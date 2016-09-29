@@ -1,5 +1,6 @@
 package com.android.uiautomator.client.cmd;
 
+import com.android.uiautomator.client.Status;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,7 +21,7 @@ public class GetText extends CommandBase {
 			Element element = Elements.getGlobal().getElement(elementId);
 			return success(element.getText());
 		} catch (final Exception e) {
-			return failed("UnknownError");
+			return failed(Status.UnknownError);
 		}
 	}
 }
