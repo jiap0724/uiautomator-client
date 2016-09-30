@@ -19,7 +19,7 @@ import java.util.List;
 public class Find extends CommandBase {
 
 	/**
-	 * 
+	 *
 	 */
 	private Elements elements = Elements.getGlobal();
 
@@ -116,7 +116,7 @@ public class Find extends CommandBase {
 				selectors = selectors.instance(0);
 			}
 			list.add(selectors);
-		} else if(strategy.equals("XPATH")) {
+		} else if (strategy.equals("XPATH")) {
 			final ArrayList<UiSelector> pairs = XmlUtils.getSelectors(text);
 
 			if (!multiple) {
@@ -128,6 +128,18 @@ public class Find extends CommandBase {
 					list.add(pair);
 				}
 			}
+		} else if (strategy.equals("LINK_TEXT")) {
+			selectors = selectors.text(text);
+			if (!multiple) {
+				selectors = selectors.instance(0);
+			}
+			list.add(selectors);
+		} else if (strategy.equals("PARTIAL_LINK_TEXT")) {
+			selectors = selectors.textContains(text);
+			if (!multiple) {
+				selectors = selectors.instance(0);
+			}
+			list.add(selectors);
 		}
 
 		return list;
