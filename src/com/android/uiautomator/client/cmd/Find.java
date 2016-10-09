@@ -33,12 +33,13 @@ public class Find extends CommandBase {
 
 			strategy = strategy.trim().replace(" ", "_").toUpperCase();
 			Object result = null;
-			List<UiSelector> selectors = null;
+			List<UiSelector> selectors = new ArrayList<UiSelector>();
 			try {
 				selectors = getSelectors(strategy, selector,
 						multiple);
 			} catch (Exception e) {
 				e.printStackTrace();
+				return failed(Status.InvalidSelector);
 			}
 			boolean found = false;
 
@@ -70,7 +71,7 @@ public class Find extends CommandBase {
 			}
 
 			return success((Object) result);
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return failed(Status.UnknownError);
 		}
