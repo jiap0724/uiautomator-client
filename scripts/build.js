@@ -15,31 +15,30 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var EOL = require('os').EOL;
-var spawn = require('win-spawn');
-var JAVA_HOME = require('java-home');
-var ant = require('ant-lite').binPath;
+const fs = require('fs');
+const path = require('path');
+const spawn = require('win-spawn');
+const JAVA_HOME = require('java-home');
+const ant = require('ant-lite').binPath;
 
-var _ = require('../lib/helper');
-var fileName = require('..').fileName;
+const _ = require('../lib/helper');
+const fileName = require('..').fileName;
 
-var isWindows = _.platform.isWindows;
-var cwd = path.join(__dirname, '..');
+const isWindows = _.platform.isWindows;
+const cwd = path.join(__dirname, '..');
 
-var MAX_SDK_VERSION = 24;
-var MIN_SDK_VERSION = 16;
+const MAX_SDK_VERSION = 24;
+const MIN_SDK_VERSION = 16;
 
 function selectAndroidSdkSync() {
-  var env = global.process.env;
+  const env = global.process.env;
 
   if (!env.ANDROID_HOME) {
     console.log('ANDROID_HOME is not set');
     return null;
   }
 
-  var platforms = path.join(env.ANDROID_HOME, 'platforms');
+  const platforms = path.join(env.ANDROID_HOME, 'platforms');
 
   if (!_.isExistedDir(platforms)) {
     console.log('platforms directory is not exist');
@@ -58,7 +57,7 @@ function selectAndroidSdkSync() {
   }
 
   res = _.filter(res, n => {
-    var version = parseInt(n.split('-').pop());
+    const version = parseInt(n.split('-').pop());
     return version >= MIN_SDK_VERSION && version <= MAX_SDK_VERSION;
   });
 
@@ -82,8 +81,8 @@ var checkEnv = function() {
       throw new Error('ANDROID_HOME is not set');
     }
 
-    var android = isWindows ? 'android.bat' : 'android';
-    var androidTool = path.resolve(env.ANDROID_HOME, 'tools', android);
+    const android = isWindows ? 'android.bat' : 'android';
+    const androidTool = path.resolve(env.ANDROID_HOME, 'tools', android);
 
     if (!_.isExistedFile(androidTool)) {
       console.log('`android` command was not found');
@@ -99,7 +98,7 @@ var checkEnv = function() {
 
     sdkVersion = sdkVersion[sdkVersion.length - 1];
 
-    var args = ['create', 'uitest-project', '-n', fileName, '-t', sdkVersion, '-p', '.'];
+    const args = ['create', 'uitest-project', '-n', fileName, '-t', sdkVersion, '-p', '.'];
 
     return [androidTool, args];
   });
@@ -109,7 +108,7 @@ var createUITest = function(res) {
   var androidTool = res[0];
   var args = res[1];
   return new Promise((resolve, reject) => {
-    var createProcess = spawn(androidTool, args, {
+    const createProcess = spawn(androidTool, args, {
       cwd: cwd
     });
 
@@ -122,11 +121,11 @@ var createUITest = function(res) {
     createProcess.stderr.setEncoding('utf8');
 
     createProcess.stdout.on('data', data => {
-      console.log(data.split(EOL).join(''));
+      console.log(data.trim());
     });
 
     createProcess.stderr.on('data', data => {
-      console.log(data.split(EOL).join(''));
+      console.log(data.trim());
     });
 
     createProcess.on('exit', code => {
@@ -153,10 +152,10 @@ var buildBootstrap = function() {
     buildProcess.stderr.setEncoding('utf8');
 
     buildProcess.stdout.on('data', data => {
-      console.log(data.split(EOL).join(''));
+      console.log(data.trim());
     });
     buildProcess.stderr.on('data', data => {
-      console.log(data.split(EOL).join(''));
+      console.log(data.trim());
     });
 
     buildProcess.on('exit', code => {
