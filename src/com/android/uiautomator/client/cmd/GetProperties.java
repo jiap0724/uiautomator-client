@@ -29,9 +29,12 @@ public class GetProperties extends CommandBase {
             JSONObject origin = new JSONObject();
             origin.put("x", rect.left);
             origin.put("y", rect.top);
+
             JSONObject props = new JSONObject();
             props.put("origin", origin);
             props.put("size", size);
+            props.put("text", el.element.getText());
+            props.put("description", el.element.getContentDescription());
             return success(props.toString());
         } catch (final UiObjectNotFoundException e) {
             return failed(Status.NoSuchElement);
