@@ -8,8 +8,8 @@ Makefile
 .jshintrc
 .jshintignore
 coverage/
-*.sw*
 bin/
 .idea/
 logs/
+*.sw*
 *.un~

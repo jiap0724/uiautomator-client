@@ -61,7 +61,7 @@ public class Find extends CommandBase {
 						result = getElement(selectors.get(i));
 						found = result != null;
 					} catch (Exception ignored) {
-						Utils.output("ignored selector");
+						//Utils.output("ignored selector");
 					}
 				}
 			}

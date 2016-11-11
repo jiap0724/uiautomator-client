@@ -26,8 +26,6 @@ proguard/
 *.log
 
 #temp
-*.swp
-*.swo
 .DS_Store
 Thumbs.db
 
@@ -44,11 +42,11 @@ lint.xml
 
 node_modules
 npm-debug.log
-*.sw*
 .idea/*
 Thumbs.db
 coverage/
 .project
 .settings/
 build.xml
+*.sw*
 *.un~
