@@ -57,7 +57,7 @@ public class Element {
 	 */
 	public boolean setText(String text) throws UiObjectNotFoundException {
 		Configurator config = Configurator.getInstance();
-		config.setKeyInjectionDelay(500);
+		config.setKeyInjectionDelay(20);
 		Boolean success = element.setText(text);
 		config.setKeyInjectionDelay(0);
 		return success;
