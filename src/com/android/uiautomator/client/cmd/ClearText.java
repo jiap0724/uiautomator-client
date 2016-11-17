@@ -4,7 +4,6 @@ import com.android.uiautomator.client.CommandBase;
 import com.android.uiautomator.client.Element;
 import com.android.uiautomator.client.Elements;
 import com.android.uiautomator.client.Status;
-import com.android.uiautomator.core.UiDevice;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,10 +19,8 @@ public class ClearText extends CommandBase {
             String elementId = (String) args.get("elementId");
             Element el = Elements.getGlobal().getElement(elementId);
             el.clearText();
-            UiDevice.getInstance().clearLastTraversedText();
-            String text = el.getText();
-            for (int i=0;i<text.length();i++) {
-                UiDevice.getInstance().pressDelete();
+            while(el.getText().length() != 0) {
+                el.clearText();
             }
             return success(true);
         } catch (final UiObjectNotFoundException e) {
