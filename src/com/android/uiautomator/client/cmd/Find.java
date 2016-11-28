@@ -52,7 +52,7 @@ public class Find extends CommandBase {
 					} catch (final UiObjectNotFoundException ignored) {
 					}
 				}
-				found = foundElements.size() > 0;
+				found = true;
 				result = elementsToJSONArray(foundElements);
 
 			} else {
