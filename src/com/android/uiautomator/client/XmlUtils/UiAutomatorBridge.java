@@ -17,6 +17,7 @@ package com.android.uiautomator.client.XmlUtils;
 
 import android.view.Display;
 import com.android.uiautomator.core.UiDevice;
+import android.view.InputEvent;
 
 import static com.android.uiautomator.client.XmlUtils.ReflectionUtils.*;
 
@@ -57,6 +58,15 @@ public class UiAutomatorBridge {
 
     public static UiAutomatorBridge getInstance() {
         return INSTANCE;
+    }
+
+    public InteractionController getInteractionController() throws Exception {
+        return new InteractionController(getField(CLASS_UI_AUTOMATOR_BRIDGE, FIELD_INTERACTION_CONTROLLER, uiAutomatorBridge));
+    }
+
+    public boolean injectInputEvent(InputEvent event, boolean sync) throws Exception {
+        return (Boolean) invoke(method(CLASS_UI_AUTOMATOR_BRIDGE, METHOD_INJECT_INPUT_EVENT, InputEvent.class, boolean.class),
+            uiAutomatorBridge, event, sync);
     }
 
     public QueryController getQueryController() throws Exception {

@@ -77,4 +77,8 @@ public class Element {
 	public boolean isDisplayed() throws UiObjectNotFoundException {
 		return element.waitForExists(500);
 	}
+
+	public UiObject getUiObject() {
+		return this.element;
+	}
 }
