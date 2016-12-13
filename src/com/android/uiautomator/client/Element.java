@@ -78,6 +78,57 @@ public class Element {
 		return element.waitForExists(500);
 	}
 
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean tap() throws UiObjectNotFoundException {
+		return element.click();
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean doubleTap() throws UiObjectNotFoundException {
+		element.click();
+		return element.click();
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean press() throws UiObjectNotFoundException {
+		return element.longClick();
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean pinch(float scale) throws UiObjectNotFoundException {
+		if (scale > 1) {
+			int percent = Math.round(100 * (scale - 1) / scale);
+			return element.pinchOut(percent, 100);
+		} else if (scale < 1) {
+			int percent = Math.round(100 * (1 - scale) / scale);
+			return element.pinchIn(percent, 100);
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean drag(int x, int y, int duration) throws UiObjectNotFoundException {
+		// Steps are injected about 5ms apart.
+		int steps = duration * 200;
+		return element.dragTo(x, y, steps);
+	}
+
 	public UiObject getUiObject() {
 		return this.element;
 	}
