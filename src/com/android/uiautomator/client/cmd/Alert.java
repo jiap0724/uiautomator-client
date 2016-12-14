@@ -18,9 +18,7 @@ public class Alert extends CommandBase {
     public String execute(JSONObject args) throws JSONException {
         try {
             String action = (String) args.get("action");
-            Utils.output("-----------------");
             Utils.output(action);
-            Utils.output("-----------------");
             if (action.equals("accept")) {
                 return acceptAlert();
             } else if (action.equals("dismiss")) {
