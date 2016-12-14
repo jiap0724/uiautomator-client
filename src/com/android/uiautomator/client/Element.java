@@ -78,6 +78,47 @@ public class Element {
 		return element.waitForExists(500);
 	}
 
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean tap() throws UiObjectNotFoundException {
+		element.click();
+		return true;
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean doubleTap() throws UiObjectNotFoundException {
+		element.click();
+		element.click();
+		return true;
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean pinch(String direction, int percent, int steps) throws UiObjectNotFoundException {
+		if (direction.equals("in")) {
+			element.pinchIn(percent, steps);
+		} else if (direction.equals("out")) {
+			element.pinchOut(percent, steps);
+		}
+		return true;
+	}
+
+	/**
+	 * @return res
+	 * @throws UiObjectNotFoundException
+	 */
+	public boolean drag(int x, int y, int steps) throws UiObjectNotFoundException {
+		element.dragTo(x, y, steps);
+		return true;
+	}
+
 	public UiObject getUiObject() {
 		return this.element;
 	}
