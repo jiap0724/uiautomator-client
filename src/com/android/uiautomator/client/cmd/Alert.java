@@ -3,34 +3,40 @@ package com.android.uiautomator.client.cmd;
 import com.android.uiautomator.client.Utils;
 import com.android.uiautomator.client.CommandBase;
 import com.android.uiautomator.client.Status;
+
+import com.android.uiautomator.core.UiDevice;
 import com.android.uiautomator.core.UiObject;
+import com.android.uiautomator.core.UiWatcher;
 import com.android.uiautomator.core.UiSelector;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 /**
- * @author xdf
+ * @author zenzhu
  *
  */
 public class Alert extends CommandBase {
+
+    UiDevice device = UiDevice.getInstance();
+
     @Override
     public String execute(JSONObject args) throws JSONException {
         try {
             String action = (String) args.get("action");
-            Utils.output(action);
             if (action.equals("accept")) {
-                return acceptAlert();
+                acceptAlert();
             } else if (action.equals("dismiss")) {
-                return dismissAlert();
-            } else if (action.equals("get")) {
-                return getAlertText();
-            } else if (action.equals("post")) {
-                String text = (String) args.get("text");
-                return sendAlertKeys(text);
+                dismissAlert();
+            } else if (action.equals("registerAutoAcceptAlerts")) {
+                registerAlertWatcher("accept");
+            } else if (action.equals("registerAutoDismissAlerts")) {
+                registerAlertWatcher("dismiss");
             } else {
-                return failed(Status.UnknownCommand);
+                throw new Exception("Not support action: " + action);
             }
+            return success(true);
         } catch (final UiObjectNotFoundException e) {
             return failed(Status.NoAlertOpenError);
         } catch (final Exception e) {
@@ -38,35 +44,50 @@ public class Alert extends CommandBase {
         }
     }
 
-    public UiObject getAlertView() throws UiObjectNotFoundException {
-        UiObject alertView = new UiObject(new UiSelector().className("android.app.AlertDialog"));
-        if (!alertView.exists()) {
-            throw new UiObjectNotFoundException("Alert Dialog does not exists!");
+    private Void registerAlertWatcher(final String alertType) {
+        UiWatcher closeAlertWatcher = new UiWatcher() {
+            @Override
+            public boolean checkForCondition() {
+                try {
+                    UiObject alertButton = getAlertButton(alertType);
+                    alertButton.click();
+                    return true;
+                } catch (final Exception e) {
+                    return false;
+                }
+            }
+        };
+        device.registerWatcher("CLOSE_ALERT_WATCHER", closeAlertWatcher);
+        device.runWatchers();
+        return null;
+    }
+
+    private UiObject getAlertButton(String alertType) throws UiObjectNotFoundException, Exception {
+        int buttonIndex;
+        if (alertType.equals("accept")) {
+            buttonIndex = 1;
+        } else if (alertType.equals("dismiss")) {
+            buttonIndex = 0;
+        } else {
+            throw new Exception("alertType can only be 'accept' or 'dismiss'");
         }
-        return alertView;
+        UiObject alertButton = new UiObject(new UiSelector()
+                .className("android.widget.Button")
+                .clickable(true)
+                .checkable(false)
+                .index(buttonIndex));
+
+        if (!alertButton.exists()) {
+            throw new UiObjectNotFoundException("Alert Dialog does not exist.");
+        }
+        return alertButton;
     }
 
-    public String acceptAlert() throws Exception {
-        UiObject alertView = getAlertView();
-        alertView.clickBottomRight();
-        return success(null);
+    private boolean acceptAlert() throws UiObjectNotFoundException, Exception {
+        return getAlertButton("accept").click();
     }
 
-    public String dismissAlert() throws Exception {
-        UiObject alertView = getAlertView();
-        alertView.clickTopLeft();
-        return success(null);
-    }
-
-    public String getAlertText() throws Exception {
-        UiObject alertView = getAlertView();
-        String text = alertView.getText();
-        return success((Object) text);
-    }
-
-    public String sendAlertKeys(String text) throws Exception {
-        UiObject alertView = getAlertView();
-        alertView.setText(text);
-        return success(null);
+    private boolean dismissAlert() throws UiObjectNotFoundException, Exception {
+        return getAlertButton("dismiss").click();
     }
 }
