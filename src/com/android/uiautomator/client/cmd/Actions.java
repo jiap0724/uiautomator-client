@@ -203,10 +203,18 @@ public class Actions extends CommandBase {
         for (int i = 0; i < actions.length(); i++) {
             JSONObject action = actions.getJSONObject(i);
             if (i == 0) {
-                int fromX = action.optInt("fromX");
-                int fromY = action.optInt("fromY");
-                Point p = new Point(fromX, fromY);
-                allPoint[0] = p;
+                String elementId = action.optString("element");
+                if (elementId != "") {
+                    Element el = getElement(elementId);
+                    Rect elRect = el.getUiObject().getBounds();
+                    Point p = new Point(elRect.centerX(), elRect.centerY());
+                    allPoint[0] = p;
+                } else {
+                    int fromX = action.optInt("fromX");
+                    int fromY = action.optInt("fromY");
+                    Point p = new Point(fromX, fromY);
+                    allPoint[0] = p;
+                }
             }
             int toX = action.optInt("toX");
             int toY = action.optInt("toY");
