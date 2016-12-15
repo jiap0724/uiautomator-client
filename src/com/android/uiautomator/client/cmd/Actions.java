@@ -133,7 +133,11 @@ public class Actions extends CommandBase {
     private boolean press(JSONObject args) throws Exception {
         String elementId = args.optString("element");
         double duration = args.optDouble("duration", 1);
-        int steps = (int) Math.round(duration * 40);
+        int steps = args.optInt("steps");
+        if (steps == 0) {
+            duration = args.optDouble("duration", 1);
+            steps = (int) Math.round(duration * 40);
+        }
         if (elementId != "") {
             Element el = getElement(elementId);
             Rect elRect = el.getUiObject().getBounds();
@@ -183,8 +187,11 @@ public class Actions extends CommandBase {
         int fromY = args.optInt("fromY");
         int toX = args.optInt("toX");
         int toY = args.optInt("toY");
-        double duration = args.optDouble("duration", 1);
-        int steps = (int) Math.round(duration * 40);
+        int steps = args.optInt("steps");
+        if (steps == 0) {
+            double duration = args.optDouble("duration", 1);
+            steps = (int) Math.round(duration * 40);
+        }
         if (elementId != "") {
             Element el = getElement(elementId);
             return el.drag(toX, toY, steps);
@@ -200,10 +207,16 @@ public class Actions extends CommandBase {
         }
 
         Point[] allPoint = new Point[actions.length() + 1];
+        int steps = 0;
         for (int i = 0; i < actions.length(); i++) {
             JSONObject action = actions.getJSONObject(i);
             if (i == 0) {
                 String elementId = action.optString("element");
+                steps = action.optInt("steps");
+                if (steps == 0) {
+                    double duration = action.optDouble("duration", 1);
+                    steps = (int) Math.round(duration * 40);
+                }
                 if (elementId != "") {
                     Element el = getElement(elementId);
                     Rect elRect = el.getUiObject().getBounds();
@@ -221,6 +234,6 @@ public class Actions extends CommandBase {
             Point p = new Point(toX, toY);
             allPoint[i + 1] = p;
         }
-        return device.swipe(allPoint, 100);
+        return device.swipe(allPoint, steps);
     }
 }
