@@ -1,6 +1,6 @@
 {
   "name": "uiautomator-client",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "Node.js wrapper for UIAutomator",
   "keywords": [
     "uiautomator"
