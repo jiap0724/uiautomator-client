@@ -31,6 +31,7 @@ public class Command {
 		getMap().put("getSource", new GetSource());
 		getMap().put("isDisplayed", new IsDisplayed());
 		getMap().put("actions", new Actions());
+		getMap().put("alert", new Alert());
 	}
 
 	/**
