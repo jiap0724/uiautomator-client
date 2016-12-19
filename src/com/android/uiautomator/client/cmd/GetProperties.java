@@ -33,12 +33,41 @@ public class GetProperties extends CommandBase {
             text.put("text", el.element.getText());
             JSONObject description = new JSONObject();
             description.put("description", el.element.getContentDescription());
+            JSONObject enabled = new JSONObject();
+            enabled.put("enabled", el.element.isEnabled());
+            JSONObject checkable = new JSONObject();
+            checkable.put("checkable", el.element.isCheckable());
+            JSONObject checked = new JSONObject();
+            checked.put("checked", el.element.isChecked());
+            JSONObject clickable = new JSONObject();
+            clickable.put("clickable", el.element.isClickable());
+            JSONObject focusable = new JSONObject();
+            focusable.put("focusable", el.element.isFocusable());
+            JSONObject focused = new JSONObject();
+            focused.put("focused", el.element.isFocused());
+            JSONObject longClickable = new JSONObject();
+            longClickable.put("longClickable", el.element.isLongClickable());
+            JSONObject scrollable = new JSONObject();
+            scrollable.put("scrollable", el.element.isScrollable());
+            JSONObject selected = new JSONObject();
+            selected.put("selected", el.element.isSelected());
+
 
             JSONObject props = new JSONObject();
             props.put("origin", origin);
             props.put("size", size);
             props.put("text", text);
             props.put("description", description);
+            props.put("enabled", enabled);
+            props.put("checkable", checkable);
+            props.put("checked", checked);
+            props.put("clickable", clickable);
+            props.put("focusable", focusable);
+            props.put("focused", focused);
+            props.put("longClickable", longClickable);
+            props.put("scrollable", scrollable);
+            props.put("selected", selected);
+
             return success(props.toString());
         } catch (final UiObjectNotFoundException e) {
             return failed(Status.NoSuchElement);
