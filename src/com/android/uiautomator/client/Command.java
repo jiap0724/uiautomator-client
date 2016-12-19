@@ -28,6 +28,7 @@ public class Command {
 		getMap().put("swipe", new Swipe());
 		getMap().put("getWindowSize", new GetWindowSize());
 		getMap().put("getProperties", new GetProperties());
+		getMap().put("getRect", new GetRect());
 		getMap().put("getSource", new GetSource());
 		getMap().put("isDisplayed", new IsDisplayed());
 		getMap().put("actions", new Actions());
