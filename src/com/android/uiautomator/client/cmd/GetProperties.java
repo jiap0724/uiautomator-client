@@ -21,14 +21,6 @@ public class GetProperties extends CommandBase {
             String elementId = (String) args.get("elementId");
             Element el = Elements.getGlobal().getElement(elementId);
             final Rect rect = el.element.getBounds();
-            JSONObject size = new JSONObject();
-            size.put("width", rect.width());
-            size.put("height", rect.height());
-            size.put("centerX", rect.centerX());
-            size.put("centerY", rect.centerY());
-            JSONObject origin = new JSONObject();
-            origin.put("x", rect.left);
-            origin.put("y", rect.top);
             JSONObject text = new JSONObject();
             text.put("text", el.element.getText());
             JSONObject description = new JSONObject();
@@ -54,8 +46,6 @@ public class GetProperties extends CommandBase {
 
 
             JSONObject props = new JSONObject();
-            props.put("origin", origin);
-            props.put("size", size);
             props.put("text", text);
             props.put("description", description);
             props.put("enabled", enabled);
