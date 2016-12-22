@@ -115,6 +115,7 @@ public class Actions extends CommandBase {
             int x = args.optInt("x");
             int y = args.optInt("y");
             device.click(x, y);
+            Thread.sleep(100);
             device.click(x, y);
             return true;
         }

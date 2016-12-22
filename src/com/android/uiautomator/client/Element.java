@@ -91,8 +91,9 @@ public class Element {
 	 * @return res
 	 * @throws UiObjectNotFoundException
 	 */
-	public boolean doubleTap() throws UiObjectNotFoundException {
+	public boolean doubleTap() throws UiObjectNotFoundException, Exception {
 		element.click();
+		Thread.sleep(100);
 		element.click();
 		return true;
 	}
