@@ -1,6 +1,5 @@
 package com.android.uiautomator.client.charsetUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Iterator;
