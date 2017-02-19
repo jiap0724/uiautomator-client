@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.uiautomator.client.XmlUtils;
+package com.android.uiautomator.client.xmlUtils;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import static com.android.uiautomator.client.XmlUtils.ReflectionUtils.invoke;
-import static com.android.uiautomator.client.XmlUtils.ReflectionUtils.method;
+import static com.android.uiautomator.client.xmlUtils.ReflectionUtils.invoke;
+import static com.android.uiautomator.client.xmlUtils.ReflectionUtils.method;
 
 public class QueryController {
 

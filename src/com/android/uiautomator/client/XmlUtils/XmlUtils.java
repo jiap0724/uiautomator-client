@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.uiautomator.client.XmlUtils;
+package com.android.uiautomator.client.xmlUtils;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 import com.android.uiautomator.core.UiSelector;

@@ -1,6 +1,7 @@
 package com.android.uiautomator.client.cmd;
 
 import com.android.uiautomator.client.Status;
+import com.android.uiautomator.client.charsetUtils.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +33,7 @@ public class SetText extends CommandBase {
                 text = text.replace("\\n", "");
             }
 
-            Charset UTF7 = Charset.forName("UTF-7");
+            Charset UTF7 = new CharsetProvider().charsetForName("X-MODIFIED-UTF-7");
             Charset ASCII = Charset.forName("US-ASCII");
 
             byte[] encoded = text.getBytes(UTF7);
