@@ -1,7 +1,7 @@
 package com.android.uiautomator.client.cmd;
 
 import com.android.uiautomator.client.*;
-import com.android.uiautomator.client.XmlUtils.XmlUtils;
+import com.android.uiautomator.client.xmlUtils.XmlUtils;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
 import org.json.JSONArray;

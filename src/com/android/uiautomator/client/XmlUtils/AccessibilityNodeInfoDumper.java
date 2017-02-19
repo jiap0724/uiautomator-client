@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.uiautomator.client.XmlUtils;
+package com.android.uiautomator.client.xmlUtils;
 
 import android.graphics.Point;
 import android.os.Build;
