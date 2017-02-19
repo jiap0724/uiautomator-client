@@ -45,23 +45,4 @@ public class CharsetProvider extends java.nio.charset.spi.CharsetProvider {
         return charsets.iterator();
     }
 
-    public static void main(String[] args) throws UnsupportedEncodingException {
-        if (args.length < 2) {
-            showUsage();
-        } else if ("encode".equalsIgnoreCase(args[0])) {
-            byte[] encoded = args[1].getBytes(UTF7_NAME);
-            System.out.println(new String(encoded, "US-ASCII"));
-        } else if ("decode".equalsIgnoreCase(args[0])) {
-            byte[] bytes = args[1].getBytes("US-ASCII");
-            System.out.println(new String(bytes, UTF7_NAME));
-        } else
-            showUsage();
-    }
-
-    private static void showUsage() {
-        System.out.println("Usage: java -jar jutf7.jar [encode|decode] <text>");
-        System.out.println();
-        System.out.println("Example: java -jar jutf7 encode caf�");
-        System.out.println("Result: caf+AOk-");
-    }
 }

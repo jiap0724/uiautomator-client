@@ -16,13 +16,6 @@ class UTF7StyleCharsetEncoder extends CharsetEncoder {
     private boolean base64mode;
     private int bitsToOutput;
     private int sextet;
-    static boolean useUglyHackToForceCallToFlushInJava5;
-    static {
-        String version = System.getProperty("java.specification.version");
-        String vendor = System.getProperty("java.vm.vendor");
-        useUglyHackToForceCallToFlushInJava5 = "1.4".equals(version) || "1.5".equals(version);
-        useUglyHackToForceCallToFlushInJava5 &= "Sun Microsystems Inc.".equals(vendor);
-    }
 
     UTF7StyleCharsetEncoder(UTF7StyleCharset cs, Base64Util base64, boolean strict) {
         super(cs, AVG_BYTES_PER_CHAR, MAX_BYTES_PER_CHAR);
@@ -64,8 +57,7 @@ class UTF7StyleCharsetEncoder extends CharsetEncoder {
             } else
                 encodeBase64(ch, out);
         }
-        if (base64mode && useUglyHackToForceCallToFlushInJava5
-                && out.limit() != MAX_BYTES_PER_CHAR * in.limit())
+        if (base64mode && out.limit() != MAX_BYTES_PER_CHAR * in.limit())
             return CoderResult.OVERFLOW;
         return CoderResult.UNDERFLOW;
     }
