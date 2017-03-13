@@ -2,6 +2,7 @@ package com.android.uiautomator.client.cmd;
 
 import com.android.uiautomator.client.Status;
 import com.android.uiautomator.client.charsetUtils.*;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,9 +29,9 @@ public class SetText extends CommandBase {
 
             Element element = null;
 
-            if(elementId==null||"".equals(elementId)){
+            if (elementId == null || "".equals(elementId)) {
                 element = Elements.getGlobal().getElement(new UiSelector().focused(true));
-            }else{
+            } else {
                 element = Elements.getGlobal().getElement(elementId);
             }
 
