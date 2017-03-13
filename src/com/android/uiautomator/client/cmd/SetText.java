@@ -9,6 +9,8 @@ import com.android.uiautomator.client.CommandBase;
 import com.android.uiautomator.client.Element;
 import com.android.uiautomator.client.Elements;
 import com.android.uiautomator.core.UiDevice;
+import com.android.uiautomator.core.UiSelector;
+
 import com.android.uiautomator.core.UiObjectNotFoundException;
 
 import java.nio.charset.Charset;
@@ -24,7 +26,13 @@ public class SetText extends CommandBase {
             String elementId = (String) args.get("elementId");
             String text = (String) args.get("text");
 
-            Element element = Elements.getGlobal().getElement(elementId);
+            Element element = null;
+
+            if(elementId==null||"".equals(elementId)){
+                element = Elements.getGlobal().getElement(new UiSelector().focused(true));
+            }else{
+                element = Elements.getGlobal().getElement(elementId);
+            }
 
             boolean needPressEnter = false;
 
@@ -45,7 +53,6 @@ public class SetText extends CommandBase {
                 final UiDevice d = UiDevice.getInstance();
                 d.pressEnter();
             }
-
             return success(result);
         } catch (final UiObjectNotFoundException e) {
             return failed(Status.NoSuchElement);
