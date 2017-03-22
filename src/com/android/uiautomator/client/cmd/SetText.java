@@ -26,20 +26,6 @@ public class SetText extends CommandBase {
             String elementId = (String) args.get("elementId");
             String text = (String) args.get("text");
 
-            Element element = null;
-
-            if (elementId == null || "".equals(elementId)) {
-                try {
-                    //if id not exist and has no focus do nothing
-                    element = Elements.getGlobal().getElement(new UiSelector().focused(true));
-                    args.put("elementId", element.getId());
-                } catch (Exception e) {
-                    return success(true);
-                }
-            } else {
-                element = Elements.getGlobal().getElement(elementId);
-            }
-
             boolean needPressEnter = false;
 
             if (text.endsWith("\\n")) {
@@ -50,17 +36,32 @@ public class SetText extends CommandBase {
             Charset UTF7 = new CharsetProvider().charsetForName("X-MODIFIED-UTF-7");
             Charset ASCII = Charset.forName("US-ASCII");
 
-            String currentText = element.getText();
-            if (hasHintText(element)) {
-                // if default value has hints ,empty value
-                currentText = "";
+
+            Element element = null;
+
+            String resultText = text;
+
+            if (elementId == null || "".equals(elementId)) {
+                try {
+                    //if id not exist and has no focus do nothing
+                    element = Elements.getGlobal().getElement(new UiSelector().focused(true));
+                    args.put("elementId", element.getId());
+                } catch (Exception e) {
+                    return success(true);
+                }
+
+                String currentText = element.getText();
+                if (hasHintText(element)) {
+                    // if default value has hints ,empty value
+                    currentText = "";
+                }
+                new ClearText().execute(args);
+                resultText = currentText + text;
+            } else {
+                element = Elements.getGlobal().getElement(elementId);
             }
 
-
-            new ClearText().execute(args);
-
-
-            byte[] encoded = (currentText + text).getBytes(UTF7);
+            byte[] encoded = (resultText).getBytes(UTF7);
             String str = new String(encoded, ASCII);
 
 
