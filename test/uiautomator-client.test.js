@@ -22,7 +22,8 @@ describe('android runtime socket protocol', function() {
   var client = new UIAutomator();
 
   it('init uiautomator', function *() {
-    client.should.be.ok;
+    client.should.be.ok();
+    console.log(ADB);
     /*
     var adb = new ADB();
     var devices = yield ADB.getDevices();

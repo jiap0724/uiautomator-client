@@ -1,6 +1,5 @@
 package com.android.uiautomator.client.cmd;
 
-import android.view.KeyEvent;
 import com.android.uiautomator.client.CommandBase;
 import com.android.uiautomator.client.Element;
 import com.android.uiautomator.client.Elements;
@@ -12,7 +11,6 @@ import com.android.uiautomator.core.UiSelector;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.Charset;
 
 /**
@@ -39,8 +37,6 @@ public class SetText extends CommandBase {
 
             Element element = null;
 
-            String resultText = text;
-
             if (elementId == null || "".equals(elementId)) {
                 try {
                     //if id not exist and has no focus do nothing
@@ -50,18 +46,11 @@ public class SetText extends CommandBase {
                     return success(true);
                 }
 
-                String currentText = element.getText();
-                if (hasHintText(element)) {
-                    // if default value has hints ,empty value
-                    currentText = "";
-                }
-                new ClearText().execute(args);
-                resultText = currentText + text;
             } else {
                 element = Elements.getGlobal().getElement(elementId);
             }
 
-            byte[] encoded = (resultText).getBytes(UTF7);
+            byte[] encoded = (text).getBytes(UTF7);
             String str = new String(encoded, ASCII);
 
 
@@ -77,32 +66,5 @@ public class SetText extends CommandBase {
         } catch (final Exception e) {
             return failed(Status.UnknownError);
         }
-    }
-
-    private boolean hasHintText(Element el)
-            throws UiObjectNotFoundException, IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException {
-        // to test if the remaining text is hint text, try sending a single delete key and testing if there is any change.
-        String currText = el.getText();
-
-        try {
-            if (!el.getUiObject().isFocused()) {
-                System.out.println("Could not check for hint text because the element is not focused!");
-                return false;
-            }
-        } catch (final Exception e) {
-            System.out.println("Could not check for hint text: " + e.getMessage());
-            return false;
-        }
-
-        try {
-            com.android.uiautomator.client.xmlUtils.InteractionController interactionController = com.android.uiautomator.client.xmlUtils.UiAutomatorBridge.getInstance().getInteractionController();
-            interactionController.sendKey(KeyEvent.KEYCODE_DEL, 0);
-            interactionController.sendKey(KeyEvent.KEYCODE_FORWARD_DEL, 0);
-        } catch (Exception e) {
-            System.out.println("UiAutomatorBridge.getInteractionController error happen!");
-        }
-
-        return currText.equals(el.getText());
     }
 }
