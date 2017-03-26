@@ -16,13 +16,13 @@ Node.js wrapper for UIAutomator.
 [download-image]: https://img.shields.io/npm/dm/uiautomator-client.svg?style=flat-square
 [download-url]: https://npmjs.org/package/uiautomator-client
 
-> uiautomator client
-
 ## Installment
 
-```shell
+``` bash
 $ npm i uiautomator-client --save
 ```
+
+[uiautomator source code](https://android.googlesource.com/platform/frameworks/testing/+/master/uiautomator/)
 
 ## License
 
